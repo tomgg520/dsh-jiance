@@ -22,7 +22,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("服务器")) {
+                Section {
                     VStack(alignment: .leading, spacing: 5) {
                         Text("地址")
                             .font(.system(size: 11))
@@ -54,13 +54,17 @@ struct SettingsView: View {
                     }
 
                     Button("保存并重新连接") { save() }
+                } header: {
+                    Text("服务器")
                 }
 
-                Section(header: Text("连接状态")) {
+                Section {
                     InfoRow(label: "电脑", value: info?.name ?? "—")
                     InfoRow(label: "桥接服务", value: info?.bridge ?? "—")
                     InfoRow(label: "DSH", value: info?.dsh.state ?? "—")
                     InfoRow(label: "自动授权", value: (info?.autoApprove ?? false) ? "开" : "关（在手机上确认）")
+                } header: {
+                    Text("连接状态")
                 }
 
                 Section {
@@ -73,20 +77,24 @@ struct SettingsView: View {
                     }
                 }
 
-                Section(footer: Text("只删除这台 iPhone 上的记录，电脑端会话不受影响。")) {
+                Section {
                     Button(action: { confirmClear = true }) {
                         Text("清除本机聊天记录")
                             .foregroundColor(Theme.danger)
                     }
+                } footer: {
+                    Text("只删除这台 iPhone 上的记录，电脑端会话不受影响。")
                 }
 
-                Section(header: Text("关于")) {
+                Section {
                     InfoRow(label: "版本", value: "1.0 (1)")
                     InfoRow(label: "适配", value: "iOS 14.0 及以上")
                     Text("DSH 移动端通过 Agent Client Protocol 连接电脑上的 DeepSeek Harness；所有模型调用都在电脑上完成。")
                         .font(.system(size: 11))
                         .foregroundColor(.secondary)
                         .lineSpacing(3)
+                } header: {
+                    Text("关于")
                 }
             }
             .listStyle(InsetGroupedListStyle())

@@ -33,11 +33,7 @@ struct SessionsView: View {
                 }
             }
 
-            Section(header: HStack(spacing: 8) {
-                Text(store.serverName.isEmpty ? "会话" : store.serverName)
-                Spacer()
-                StatusDot(state: store.dshState)
-            }) {
+            Section {
                 ForEach(store.sessions) { session in
                     NavigationLink(destination: ChatView(session: session, server: server)) {
                         SessionRow(session: session)
@@ -61,6 +57,12 @@ struct SessionsView: View {
                         )
                         .listRowBackground(Color.clear)
                     }
+                }
+            } header: {
+                HStack(spacing: 8) {
+                Text(store.serverName.isEmpty ? "会话" : store.serverName)
+                Spacer()
+                StatusDot(state: store.dshState)
                 }
             }
 

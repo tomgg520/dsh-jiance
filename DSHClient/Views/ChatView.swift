@@ -225,10 +225,12 @@ struct SessionInfoSheet: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("会话")) {
+                Section {
                     InfoRow(label: "工作目录", value: store.session.cwd, mono: true)
                     InfoRow(label: "上下文用量", value: store.usageText ?? "—")
                     InfoRow(label: "消息条数", value: "\(store.messages.count)")
+                } header: {
+                    Text("会话")
                 }
 
                 Section {
@@ -246,11 +248,13 @@ struct SessionInfoSheet: View {
                     }
                 }
 
-                Section(header: Text("说明")) {
+                Section {
                     Text("电脑端的 ACP 接口不会回放历史消息，所以聊天记录保存在这台 iPhone 上；在别的设备上看不到。")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                         .lineSpacing(3)
+                } header: {
+                    Text("说明")
                 }
             }
             .listStyle(InsetGroupedListStyle())

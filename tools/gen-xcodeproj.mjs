@@ -13,7 +13,9 @@ const id = (key) => crypto.createHash('md5').update(String(key)).digest('hex').s
 
 function q(value) {
   const text = String(value)
-  if (/^[A-Za-z0-9_./$@:+-]+$/.test(text)) return text
+  // OpenStep plist 的裸 token 只接受字母、数字、下划线和点；
+  // gnu++20 / -Onone / @executable_path/Frameworks 这类值必须加引号，否则 Xcode 解析失败。
+  if (/^[A-Za-z0-9_.]+$/.test(text)) return text
   return `"${text.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
 }
 

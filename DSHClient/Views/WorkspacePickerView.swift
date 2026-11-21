@@ -12,7 +12,7 @@ struct WorkspacePickerView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("电脑上的工作目录")) {
+                Section {
                     ForEach(workspaces) { workspace in
                         Button(action: { choose(workspace) }) {
                             HStack(spacing: 10) {
@@ -42,10 +42,12 @@ struct WorkspacePickerView: View {
                         Label("手动输入路径", systemImage: "keyboard")
                             .font(.system(size: 14))
                     }
+                } header: {
+                    Text("电脑上的工作目录")
                 }
 
                 if showManual {
-                    Section(header: Text("绝对路径"), footer: Text("路径必须存在于电脑上，例如 D:\\work\\project。")) {
+                    Section {
                         TextField("D:\\work\\project", text: $manualPath)
                             .font(.system(size: 13, design: .monospaced))
                             .autocapitalization(.none)
@@ -57,6 +59,10 @@ struct WorkspacePickerView: View {
                             choose(Workspace(name: folderName(path), path: path))
                         }
                         .disabled(manualPath.trimmed.isEmpty)
+                    } header: {
+                        Text("绝对路径")
+                    } footer: {
+                        Text("路径必须存在于电脑上，例如 D:\\work\\project。")
                     }
                 }
             }

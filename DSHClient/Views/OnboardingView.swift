@@ -41,7 +41,7 @@ struct OnboardingView: View {
                 .listRowBackground(Color.clear)
             }
 
-            Section(header: Text("配对电脑")) {
+            Section {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("电脑地址")
                         .font(.system(size: 11))
@@ -72,6 +72,8 @@ struct OnboardingView: View {
                         .foregroundColor(Theme.danger)
                         .lineSpacing(2)
                 }
+            } header: {
+                Text("配对电脑")
             }
 
             Section {
@@ -90,17 +92,19 @@ struct OnboardingView: View {
                 .listRowBackground(Color.clear)
             }
 
-            Section(header: Text("怎么用")) {
+            Section {
                 VStack(alignment: .leading, spacing: 10) {
                     step(1, "在电脑上双击运行 bridge/start-bridge.cmd（macOS / Linux 见 README）")
                     step(2, "命令窗口会显示一个地址和一个配对码")
                     step(3, "手机与电脑连同一个 Wi-Fi，把地址和配对码填到上面")
                 }
                 .padding(.vertical, 4)
+            } header: {
+                Text("怎么用")
             }
 
             if !servers.profiles.isEmpty {
-                Section(header: Text("已配对")) {
+                Section {
                     ForEach(servers.profiles) { profile in
                         Button(action: { servers.activate(profile.id) }) {
                             HStack(spacing: 10) {
@@ -124,6 +128,8 @@ struct OnboardingView: View {
                         }
                     }
                     .onDelete(perform: deleteProfiles)
+                } header: {
+                    Text("已配对")
                 }
             }
 
